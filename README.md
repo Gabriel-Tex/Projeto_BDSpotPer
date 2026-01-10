@@ -1,12 +1,5 @@
 # BDSpotPer - Sistema de Banco de Dados para Música Clássica
 
-**Universidade Federal do Ceará**  
-**Departamento de Computação**  
-**Curso de Ciência da Computação**  
-**Trabalho prático da disciplina Fundamentos de Banco de Dados**  
-**Criação e manipulação de um BD Relacional**  
-**Prof. Dr-Ing. Angelo Brayner**
-
 ## Especificação de Requisitos de Dados
 
 Um colecionador de música clássica resolveu utilizar a tecnologia de banco de dados para implementar uma versão personalizada do Spotify, o SpotPer. Para tanto, resolveu contratá-los para realizar o projeto e a implementação do banco de dados do SpotPer, o BDSpotPer. O SGBD a ser utilizado pelo SpotPer pode ser SQL Server, Oracle ou Postgres. Após a análise de requisitos, obtida através de entrevistas com o usuário, você identificou as seguintes características:
