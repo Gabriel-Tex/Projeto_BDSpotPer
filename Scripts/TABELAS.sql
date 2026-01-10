@@ -177,8 +177,8 @@ CREATE TABLE PeriodoMusical(
 	CHECK (intervaloInicio < intervaloFim),
 
 	CONSTRAINT ck_descricao
-	CHECK (descricao in ('idade média',
-'renascença', 'barroco', 'clássico', 'romântico', 'moderno'))
+	CHECK (descricao in ('Idade Média',
+'Renascença', 'Barroco', 'Clássico', 'Romântico', 'Moderno'))
 
 ) ON fg_BDSP
 
