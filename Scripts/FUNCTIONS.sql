@@ -1,9 +1,9 @@
 USE BDSpotPer
 GO
 
---Defina uma função que tem como parâmetro de entrada o nome (ou parte do)
---nome do compositor e o parâmetro de saída todos os álbuns com obras
---compostas pelo compositor.
+/* Defina uma função que tem como parâmetro de entrada o nome (ou parte do)
+nome do compositor e o parâmetro de saída todos os álbuns com obras
+compostas pelo compositor. */
 
 CREATE FUNCTION fun_ObrasDoCompositor (@nome VARCHAR(50))
 RETURNS TABLE

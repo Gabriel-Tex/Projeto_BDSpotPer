@@ -1,9 +1,9 @@
 USE BDSpotPer
 GO
 
---Criar uma visão materializada que tem como atributos o nome da playlist 
---e a quantidade de álbuns que a compõem.
-
+/* Criar uma visão materializada que tem como atributos o nome da playlist 
+e a quantidade de álbuns que a compõem. */
+ 
 CREATE OR ALTER VIEW vw_AlbunsDaPlaylist
 WITH SCHEMABINDING
 AS

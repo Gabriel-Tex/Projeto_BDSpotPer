@@ -1,6 +1,6 @@
 USE BDSpotPer
 GO
-/* A) Um álbum, com faixas de músicas do período barroco, só pode ser inserido no
+/* a) Um álbum, com faixas de músicas do período barroco, só pode ser inserido no
 banco de dados, caso o tipo de gravação seja DDD. */
 
 CREATE TRIGGER tg_barrocoDDD
@@ -26,7 +26,7 @@ BEGIN
 END
 GO
 
--- B) Um álbum não pode ter mais que 64 faixas.
+-- b) Um álbum não pode ter mais que 64 faixas.
 
 CREATE TRIGGER tg_album64
 ON Faixa
@@ -47,13 +47,13 @@ BEGIN
 END 
 GO
 
-/* C) No caso de remoção de um álbum do banco de dados, todas as suas faixas
+/* c) No caso de remoção de um álbum do banco de dados, todas as suas faixas
 devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez,
 outros relacionamentos. */
 
 -- ESSA RESTRIÇÃO JÁ É GARANTIDA PELO ON DELETE CASCADE
 
-/* D) O preço de compra de um álbum não dever ser superior a três vezes a média
+/* d) O preço de compra de um álbum não dever ser superior a três vezes a média
 do preço de compra de álbuns, com todas as faixas com tipo de gravação DDD. */
 
 CREATE TRIGGER tg_precoAlbumDDD
