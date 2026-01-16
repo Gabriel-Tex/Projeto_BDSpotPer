@@ -42,7 +42,7 @@ while True:
         criar_playlist(nome)
         print("Playlist criada com sucesso!")
 
-    elif op == '2'
+    elif op == '2':
         print("implementar")
 
     elif op == '3':
@@ -59,7 +59,7 @@ while True:
         adicionar_faixa_playlist(album, num_faixa, num_disc, playlist)
         print("Faixa adicionada com sucesso!")
     
-    elif op == '5'
+    elif op == '5':
         print('implementar')
 
     elif op == '6':
@@ -91,7 +91,7 @@ while True:
         rows = gravadora_mais_playlists_dvorack()
         print_resultados(rows)
 
-     elif op == '11':
+    elif op == '11':
         print('======= COMPOSITOR ======')
         rows = compositor_mais_faixas_playlists()
         print_resultados(rows)
