@@ -1,8 +1,8 @@
 USE BDSpotPer
 GO
 
-/* Criar uma vis�o materializada que tem como atributos o nome da playlist 
-e a quantidade de �lbuns que a comp�em. */
+/* Criar uma visão materializada que tem como atributos o nome da playlist 
+e a quantidade de álbuns que a compõem. */
  
 CREATE OR ALTER VIEW vw_AlbunsDaPlaylist
 WITH SCHEMABINDING
@@ -20,7 +20,7 @@ AS
 	GROUP BY p.codigo, p.nome
 GO
 
--- N�O FUNCIONA:
+-- NÃO FUNCIONA:
 	--CREATE UNIQUE CLUSTERED INDEX idxC_vw_AlbunsDaPlaylist
 	--ON dbo.vw_AlbunsDaPlaylist (codigo)
 	--GO
