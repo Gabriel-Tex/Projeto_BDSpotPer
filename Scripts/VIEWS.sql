@@ -1,15 +1,15 @@
 USE BDSpotPer
 GO
 
-/* Criar uma visão materializada que tem como atributos o nome da playlist 
-e a quantidade de álbuns que a compõem. */
+/* Criar uma visï¿½o materializada que tem como atributos o nome da playlist 
+e a quantidade de ï¿½lbuns que a compï¿½em. */
  
 CREATE OR ALTER VIEW vw_AlbunsDaPlaylist
 WITH SCHEMABINDING
 AS
-	SELECT p.codigo as codigo,
-	p.nome as 'Nome da Playlist', 
-	COUNT_BIG(DISTINCT f.album) as 'Quantidade de álbuns' 
+	SELECT p.codigo AS codigo,
+	p.nome AS 'Nome da Playlist', 
+	COUNT_BIG(DISTINCT f.album) AS 'Quantidade de ï¿½lbuns' 
 	FROM dbo.Playlist p
 	INNER JOIN dbo.PlaylistFaixa pf 
 		ON p.codigo = pf.playlist
@@ -20,7 +20,7 @@ AS
 	GROUP BY p.codigo, p.nome
 GO
 
--- NÃO FUNCIONA:
+-- Nï¿½O FUNCIONA:
 	--CREATE UNIQUE CLUSTERED INDEX idxC_vw_AlbunsDaPlaylist
 	--ON dbo.vw_AlbunsDaPlaylist (codigo)
 	--GO
