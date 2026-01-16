@@ -4,12 +4,12 @@ GO
 /* Criar uma visão materializada que tem como atributos o nome da playlist 
 e a quantidade de álbuns que a compõem. */
  
-CREATE OR ALTER VIEW vw_AlbunsDaPlaylist
+CREATE VIEW vw_AlbunsDaPlaylist
 WITH SCHEMABINDING
 AS
-	SELECT p.codigo as codigo,
-	p.nome as 'Nome da Playlist', 
-	COUNT_BIG(DISTINCT f.album) as 'Quantidade de álbuns' 
+	SELECT p.codigo AS codigo,
+	p.nome AS 'Nome da Playlist', 
+	COUNT(DISTINCT f.album) AS 'Quantidade de álbuns' 
 	FROM dbo.Playlist p
 	INNER JOIN dbo.PlaylistFaixa pf 
 		ON p.codigo = pf.playlist
