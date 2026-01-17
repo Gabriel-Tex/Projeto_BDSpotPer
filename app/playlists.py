@@ -37,7 +37,8 @@ def listar_playlists():
 
 def listar_faixas_de_playlist(playlist):
     return consultar("""
-        SELECT f.album, f.num_faixa, f.num_disc, f.descricao 
+        SELECT f.album, f.num_faixa, f.num_disc, f.descricao, f.tempo,
+             f.tipo_gravacao, f.tipo_composicao
         FROM Faixa f
 	    INNER JOIN PlaylistFaixa pf
             on f.album = pf.album
@@ -60,3 +61,8 @@ def remover_faixa_da_playlist(playlist, album, num_faixa, num_disc):
             AND num_faixa = ?
             AND num_disc = ?
     """, (playlist, album, num_faixa, num_disc))
+
+def quantidade_de_albuns_das_playlists():
+    return consultar("""
+        SELECT * FROM vw_AlbunsDaPlaylist
+    """)

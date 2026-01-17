@@ -12,7 +12,7 @@ def albuns_acima_da_media():
 
 # Listar nome da gravadora com maior número de playlists 
 # que possuem pelo uma faixa composta pelo compositor Dvorack
-def gravadora_mais_playlists_dvorack():
+def gravadora_com_mais_playlists_com_faixas_de_dvorack():
     return consultar("""
         SELECT g.nome
         FROM Gravadora g
@@ -58,7 +58,7 @@ def gravadora_mais_playlists_dvorack():
     """)
 
 # Listar nome do compositor com maior número de faixas nas playlists existentes.
-def compositor_mais_faixas_playlists():
+def compositor_com_mais_faixas_em_playlists():
     return consultar("""
         SELECT co.nome
         FROM Compositor co
@@ -85,7 +85,7 @@ def compositor_mais_faixas_playlists():
 
 # Listar playlists, cujas faixas (todas) têm tipo de composição "Concerto" e
 # período "Barroco".
-def playlists_concerto_barroco():
+def playlists_de_composicao_concerto_e_periodo_barroco():
     return consultar("""
         SELECT p.nome
         FROM Playlist p
