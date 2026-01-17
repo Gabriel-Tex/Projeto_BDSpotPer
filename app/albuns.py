@@ -14,4 +14,4 @@ def listar_faixas_do_album(album):
         FROM Faixa
         WHERE album = ?
         ORDER BY num_disc, num_faixa
-    """, (album,))
+    """, (album))

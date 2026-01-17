@@ -2,7 +2,9 @@ from playlists import (
     criar_playlist,
     listar_playlists,
     adicionar_faixa_playlist,
-    listar_faixas_de_playlist
+    listar_faixas_de_playlist,
+    remover_playlist,
+    remover_faixa_da_playlist
 )
 from consultas import (
     albuns_acima_da_media,
@@ -19,10 +21,10 @@ from utils import print_resultados
 while True:
     print("""
 1 - Criar playlist
-2 - Remover playlist (imp)
+2 - Remover playlist
 3 - Listar playlists
 4 - Adicionar faixa a playlist
-5 - Remover faixa da playlist (imp)
+5 - Remover faixa da playlist
 6 - Listar faixas de playlist
 7 - Listar álbuns
 8 - Listar faixas de álbum
@@ -40,64 +42,69 @@ while True:
     if op == '1':
         nome = input("Nome da playlist: ")
         criar_playlist(nome)
-        print("Playlist criada com sucesso!")
 
     elif op == '2':
-        print("implementar")
+        playlist = input("Código da playlist: ")
+        remover_playlist(playlist)
+        print("\nPlaylist removida com sucesso!")
 
     elif op == '3':
-        print('======= PLAYLISTS ======')
+        print("======= PLAYLISTS ======")
         rows = listar_playlists()
         print_resultados(rows)
 
     elif op == '4':
-        album = input('Código do álbum: ')
-        num_faixa = input('Número da faixa: ')
-        num_disc = input('Número do disco: ')
-        playlist = input('Código da playlist: ')
+        album = input("Código do álbum: ")
+        num_faixa = input("Número da faixa: ")
+        num_disc = input("Número do disco: ")
+        playlist = input("Código da playlist: ")
    
         adicionar_faixa_playlist(album, num_faixa, num_disc, playlist)
-        print("Faixa adicionada com sucesso!")
+        print("\nFaixa adicionada com sucesso!")
     
     elif op == '5':
-        print('implementar')
+        album = input("Código do álbum: ")
+        num_faixa = input("Número da faixa: ")
+        num_disc = input("Número do disco: ")
+        playlist = input("Código da playlist: ")
+
+        remover_faixa_da_playlist(playlist, album, num_faixa, num_disc)
+        print("\nFaixa removida com sucesso!")
 
     elif op == '6':
-        playlist = input('Código da playlist: ')
-        print('')
-        print('======= FAIXAS ======')
+        playlist = input("Código da playlist: ")
+        print("\n======= FAIXAS ======")
         rows = listar_faixas_de_playlist(playlist)
         print_resultados(rows)
 
     elif op == '7':
-        print('======= ÁLBUNS ======')
+        print("======= ÁLBUNS ======")
         rows = listar_albuns()
         print_resultados(rows)
 
     elif op == '8':
-        album = input('Código do álbum: ')
-        print('')
-        print('======= FAIXAS ======')
+        album = input("Código do álbum: ")
+        print("\n======= FAIXAS ======")
         rows = listar_faixas_do_album(album)
         print_resultados(rows)
 
     elif op == '9':
-        print('======= ÁLBUNS ======')
+        print("======= ÁLBUNS ======")
         rows = albuns_acima_da_media()
         print_resultados(rows)
 
     elif op == '10':
-        print('======= GRAVADORA ======')
+        print("======= GRAVADORA ======")
         rows = gravadora_mais_playlists_dvorack()
         print_resultados(rows)
 
     elif op == '11':
-        print('======= COMPOSITOR ======')
+        print("======= COMPOSITOR ======")
         rows = compositor_mais_faixas_playlists()
         print_resultados(rows)
 
     elif op == '12':
-        print('======= PLAYLISTS ======')
+        print("======= PLAYLISTS ======")
         rows = playlists_concerto_barroco()
         print_resultados(rows)
 
