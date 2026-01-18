@@ -2,18 +2,21 @@ from acesso import executar, consultar
 from datetime import datetime
 
 def criar_playlist(nome):
+    try:
+        codigo = consultar(
+            "SELECT ISNULL(MAX(codigo), 0) + 1 FROM Playlist"
+        )[0][0]
 
-    codigo = consultar(
-        "SELECT ISNULL(MAX(codigo), 0) + 1 FROM Playlist"
-    )[0][0]
+        executar("""
+            INSERT INTO Playlist (codigo, nome, data_de_criacao, tempo)
+            VALUES (?, ?, ?, ?)
+        """, (codigo, nome, datetime.now(), 0))
 
-    executar("""
-        INSERT INTO Playlist (codigo, nome, data_de_criacao, tempo)
-        VALUES (?, ?, ?, ?)
-    """, (codigo, nome, datetime.now(), 0))
-
-    print(f"Playlist criada com código {codigo}")
-    return codigo
+        print(f"Playlist criada com código {codigo}")
+        return codigo
+    
+    except RuntimeError as e:
+        raise RuntimeError(f"Erro ao criar playlist: {e}")
 
 def adicionar_faixa_playlist(album, num_faixa, num_disc, playlist):
     executar("""

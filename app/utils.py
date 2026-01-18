@@ -1,6 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
 
+# Funções para exibir os resultados de maneira formatada
+
 def print_resultados(rows):
     for row in rows:
         valores_formatados = []
