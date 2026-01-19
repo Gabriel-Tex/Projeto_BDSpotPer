@@ -34,7 +34,7 @@ FOR INSERT, UPDATE
 AS
 BEGIN
 	IF EXISTS (
-		SELECT * FROM Faixa f
+		SELECT i.album FROM Faixa f
 		INNER JOIN inserted i
 		ON f.album = i.album
 		GROUP BY i.album
