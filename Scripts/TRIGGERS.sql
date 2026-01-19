@@ -66,16 +66,18 @@ BEGIN
 
 	-- média do preço de compra de álbuns com todas as faixas do tipo DDD
     SELECT @media = AVG(a.preco_de_compra) FROM Album a
+		LEFT JOIN inserted i
+			ON i.codigo = a.codigo
     WHERE NOT EXISTS (
         SELECT * FROM Faixa f
         WHERE f.album = a.codigo
         AND (f.tipo_gravacao IS NULL OR f.tipo_gravacao <> 'DDD')
-    )
+    ) AND i.codigo IS NULL
 
 	-- se não houver álbuns com todas as faixas DDD, não é preciso aplicar a restrição
     IF @media IS NULL
         RETURN
-
+		
 	-- verificando se o álbum tem preço de compra inválido
     IF EXISTS (
         SELECT * FROM inserted i
@@ -83,7 +85,7 @@ BEGIN
     )
     BEGIN
         RAISERROR (
-            'O preço de compra de um álbum não dever ser superior a trás vezes a média do preçoo de compra de álbuns com todas as faixas do tipo DDD.',16, 1)
+            'O preço de compra de um álbum não dever ser superior a três vezes a média do preço de compra de álbuns com todas as faixas do tipo DDD.',16, 1)
         ROLLBACK TRANSACTION
     END
 END
@@ -129,7 +131,8 @@ BEGIN
 		SELECT * FROM Album a
 		INNER JOIN inserted i
 		ON a.codigo = i.album
-		WHERE (a.meio_fisico = 'CD' AND i.tipo_gravacao NOT IN ('ADD', 'DDD'))
+		WHERE (a.meio_fisico = 'CD' AND (i.tipo_gravacao NOT IN ('ADD', 'DDD') 
+			OR i.tipo_gravacao IS NULL))
 		OR (a.meio_fisico IN ('vinil', 'download') AND i.tipo_gravacao IS NOT NULL)
 	)
 	BEGIN
