@@ -1,6 +1,25 @@
 # BDSpotPer - Sistema de Banco de Dados para Música Clássica
 
 ## Como rodar?
+
+### Requirements
+
+```pip install requirements.txt```
+
+Lembrando-se de criar e ativar um ambiente virtual python para evitar qualquer conflito.
+
+### Conexão com o Banco de Dados
+O banco de dados utilizado é local, portanto é necessário, além de criar o banco de dados (rodando os scripts que estão na pasta ```Scripts```), conectá-lo manualmente ao app, criando um arquivo ```.env``` com o seguinte modelo:
+
+    DB_SERVER=nome_do_servidor
+    DB_NAME=nome_do_banco
+    DB_USER=usuario
+    DB_PASSWORD=senha
+
+Lembrando-se de criar a pasta ```C:\SQLData``` para a criação dos filegroups segundo o script em ```Scripts/FILEGROUPS.sql```.
+
+### Como executar:
+
 ```python -m app.interface```
 
 ## Especificação de Requisitos de Dados
@@ -43,30 +62,30 @@ Um colecionador de música clássica resolveu utilizar a tecnologia de banco de 
 
 ## Parte II
 
-**1)** Crie o banco de dados BDSpotPer, considerando o seguinte: o banco de dados deve possuir três filegroups (tablespaces) e o arquivo de log. O filegroup primário deve conter apenas o arquivo primário do banco de dados. Um segundo filegroup deve conter dois arquivos e um terceiro deve conter apenas um arquivo.
+**1)** [X] Crie o banco de dados BDSpotPer, considerando o seguinte: o banco de dados deve possuir três filegroups (tablespaces) e o arquivo de log. O filegroup primário deve conter apenas o arquivo primário do banco de dados. Um segundo filegroup deve conter dois arquivos e um terceiro deve conter apenas um arquivo.
 
-**2)** As tabelas referentes aos conjuntos de playlists, faixas e de relacionamento entre as duas devem ser alocadas no filegroup (tablespace), definido com apenas um arquivo. As outras tabelas devem ser alocadas no filegroup com dois arquivos.
+**2)** [X] As tabelas referentes aos conjuntos de playlists, faixas e de relacionamento entre as duas devem ser alocadas no filegroup (tablespace), definido com apenas um arquivo. As outras tabelas devem ser alocadas no filegroup com dois arquivos.
 
 **3)** Defina as seguintes restrições:
-- **a)** Um álbum, com faixas de músicas do período barroco, só pode ser inserido no banco de dados, caso o tipo de gravação seja DDD.
-- **b)** Um álbum não pode ter mais que 64 faixas (músicas).
-- **c)** No caso de remoção de um álbum do banco de dados, todas as suas faixas devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez, outros relacionamentos.
-- **d)** O preço de compra de um álbum não dever ser superior a três vezes a média do preço de compra de álbuns, com todas as faixas com tipo de gravação DDD.
+- **a)** [X] Um álbum, com faixas de músicas do período barroco, só pode ser inserido no banco de dados, caso o tipo de gravação seja DDD.
+- **b)** [X] Um álbum não pode ter mais que 64 faixas (músicas).
+- **c)** [X] No caso de remoção de um álbum do banco de dados, todas as suas faixas devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez, outros relacionamentos.
+- **d)** [X] O preço de compra de um álbum não dever ser superior a três vezes a média do preço de compra de álbuns, com todas as faixas com tipo de gravação DDD.
 
-**4)** Defina um índice primário para a tabela de Faixas sobre o atributo código do álbum. Defina um índice secundário para a mesma tabela sobre o atributo tipo de composição. Os dois com taxas de preenchimento máxima.
+**4)** [X] Defina um índice primário para a tabela de Faixas sobre o atributo código do álbum. Defina um índice secundário para a mesma tabela sobre o atributo tipo de composição. Os dois com taxas de preenchimento máxima.
 
-**5)** Criar uma visão materializada que tem como atributos o nome da playlist e a quantidade de álbuns que a compõem.
+**5)** [] Criar uma visão materializada que tem como atributos o nome da playlist e a quantidade de álbuns que a compõem.
 
-**6)** Defina uma função que tem como parâmetro de entrada o nome (ou parte do) nome do compositor e o parâmetro de saída todos os álbuns com obras compostas pelo compositor.
+**6)** [X] Defina uma função que tem como parâmetro de entrada o nome (ou parte do) nome do compositor e o parâmetro de saída todos os álbuns com obras compostas pelo compositor.
 
 **7)** Implemente um aplicativo Java, C ou Python, que implementa as seguintes funcionalidades:
-- **(i)** Criação de playlists no banco de dados. Esta função deve mostrar todos os álbuns existentes. O usuário pode, assim, escolher o(s) álbum(ns) e quais faixas destes que devem compor a playlist.
-- **(ii)** Manutenção de playlists. Esta funcionalidade deve mostrar todas as playlists existentes. Ao escolha uma playlist, a função deve permitir a remoção de músicas existentes e a inserção de novas músicas na playlist escolhida.
+- **(i)** [X] Criação de playlists no banco de dados. Esta função deve mostrar todos os álbuns existentes. O usuário pode, assim, escolher o(s) álbum(ns) e quais faixas destes que devem compor a playlist.
+- **(ii)** [X] Manutenção de playlists. Esta funcionalidade deve mostrar todas as playlists existentes. Ao escolha uma playlist, a função deve permitir a remoção de músicas existentes e a inserção de novas músicas na playlist escolhida.
 - **(iii)** Apresente o resultado das seguintes consultas sobre o banco de dados:
-  - **a.** Listar os álbuns com preço de compra maior que a média de preços de compra de todos os álbuns.
-  - **b.** Listar nome da gravadora com maior número de playlists que possuem pelo uma faixa composta pelo compositor Dvorack.
-  - **c.** Listar nome do compositor com maior número de faixas nas playlists existentes.
-  - **d.** Listar playlists, cujas faixas (todas) têm tipo de composição "Concerto" e período "Barroco".
+  - **a.** [X] Listar os álbuns com preço de compra maior que a média de preços de compra de todos os álbuns.
+  - **b.** [X] Listar nome da gravadora com maior número de playlists que possuem pelo uma faixa composta pelo compositor Dvorack.
+  - **c.** [X] Listar nome do compositor com maior número de faixas nas playlists existentes.
+  - **d.** [X] Listar playlists, cujas faixas (todas) têm tipo de composição "Concerto" e período "Barroco".
 
 ---
 *Trabalho desenvolvido para a disciplina de Fundamentos de Banco de Dados - UFC*
