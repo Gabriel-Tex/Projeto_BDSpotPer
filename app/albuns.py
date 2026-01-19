@@ -1,4 +1,4 @@
-from acesso import consultar
+from app.acesso import consultar
 
 def listar_albuns():
     return consultar("""

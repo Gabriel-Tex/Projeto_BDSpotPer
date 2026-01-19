@@ -1,4 +1,4 @@
-from acesso import consultar
+from app.acesso import consultar
 
 # Listar os álbuns com preço de compra maior que a média 
 # de preços de compra de todos os álbuns.

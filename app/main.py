@@ -3,6 +3,8 @@ from consultas import *
 from albuns import *
 from utils import *
 
+# interface no terminal 
+
 def menu():
     print("\n========= MENU =========")
     print("1 - Criar playlist")

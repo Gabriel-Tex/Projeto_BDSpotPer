@@ -1,4 +1,4 @@
-from acesso import executar, consultar
+from app.acesso import executar, consultar
 from datetime import datetime
 
 def criar_playlist(nome):

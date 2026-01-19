@@ -1,5 +1,5 @@
 import pyodbc
-from database import conectar
+from app.database import conectar
 
 # Funções de acesso ao banco de dados
 
