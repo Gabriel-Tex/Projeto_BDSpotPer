@@ -144,7 +144,7 @@ def criar_playlists(notebook):
         p = simpledialog.askinteger("Listar faixas", "Código da playlist:")
         if p:
             mostrar(
-                ["Álbum", "Nº Faixa", "Nº Disco", "Descrição", "Duração", "Tipo gravação", "Tipo composição"],
+                ["Álbum", "Nº Faixa", "Nº Disco", "Descrição", "Tipo gravação", "Tipo composição", "Período Musical"],
                 listar_faixas_de_playlist(p)
             )
 

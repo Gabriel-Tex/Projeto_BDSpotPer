@@ -40,14 +40,23 @@ def listar_playlists():
 
 def listar_faixas_de_playlist(playlist):
     return consultar("""
-        SELECT f.album, f.num_faixa, f.num_disc, f.descricao, f.tempo,
-             f.tipo_gravacao, f.tipo_composicao
+        SELECT f.album, f.num_faixa, f.num_disc, f.descricao,
+        f.tipo_gravacao, f.tipo_composicao, ISNULL(pm.descricao, 'Não possui') AS periodo
         FROM Faixa f
-	    INNER JOIN PlaylistFaixa pf
-            on f.album = pf.album
-            and f.num_disc = pf.num_disc
-            and f.num_faixa = pf.num_faixa
-        WHERE pf.playlist = ?
+            INNER JOIN PlaylistFaixa pf
+                on f.album = pf.album
+                and f.num_disc = pf.num_disc
+                and f.num_faixa = pf.num_faixa
+            LEFT JOIN Compoe c
+                ON f.album = c.album
+                AND f.num_faixa = c.num_faixa
+                AND f.num_disc = c.num_disc
+            LEFT JOIN Compositor co
+                ON c.compositor = co.codigo
+            LEFT JOIN PeriodoMusical pm
+                ON co.periodo_musical = pm.codigo
+            WHERE pf.playlist = ?
+            ORDER BY f.descricao
     """, (playlist))
 
 def remover_playlist(playlist):

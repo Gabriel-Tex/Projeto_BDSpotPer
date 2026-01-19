@@ -5,6 +5,7 @@ from app.GUI.gui_playlists import criar_playlists
 from app.GUI.gui_albuns import criar_albuns
 from app.GUI.gui_consultas import criar_consultas
 from app.GUI.gui_faixas import criar_faixas
+from app.GUI.gui_compositor import criar_obras_compositor
 
 class BDSpotPerApp(ttk.Window):
     def __init__(self):
@@ -48,3 +49,4 @@ class BDSpotPerApp(ttk.Window):
         criar_consultas(tabs)
         criar_albuns(tabs)
         criar_faixas(tabs)
+        criar_obras_compositor(tabs)

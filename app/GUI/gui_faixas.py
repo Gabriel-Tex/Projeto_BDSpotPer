@@ -36,7 +36,7 @@ def criar_faixas(notebook):
         dados = listar_todas_as_faixas()
 
         cabecalhos = [
-            "Álbum", "Nº Faixa", "Nº Disco", "Descrição", "Duração", "Tipo gravação", "Tipo composição"
+            "Álbum", "Nº Faixa", "Nº Disco", "Descrição", "Tipo gravação", "Tipo composição", "Período Musical"
         ]
 
         output.insert(END, formatar_tabela(cabecalhos, dados))
