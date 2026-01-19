@@ -1,24 +1,24 @@
 INSERT INTO PeriodoMusical VALUES
-(1, 'Idade MÈdia', 500, 1400),
-(2, 'RenascenÁa', 1400, 1600),
+(1, 'Idade M√©dia', 500, 1400),
+(2, 'Renascen√ßa', 1400, 1600),
 (3, 'Barroco', 1600, 1750),
-(4, 'Cl·ssico', 1750, 1820),
-(5, 'Rom‚ntico', 1820, 1910),
+(4, 'Cl√°ssico', 1750, 1820),
+(5, 'Rom√¢ntico', 1820, 1910),
 (6, 'Moderno', 1910, 2025);
 
 INSERT INTO Compositor VALUES
 (1, 'Bach', 'Eisenach', 'Alemanha', '1685-03-31', '1750-07-28', 3),
-(2, 'Vivaldi', 'Veneza', 'It·lia', '1678-03-04', '1741-07-28', 3),
-(3, 'Mozart', 'Salzburgo', '¡ustria', '1756-01-27', '1791-12-05', 4),
+(2, 'Vivaldi', 'Veneza', 'It√°lia', '1678-03-04', '1741-07-28', 3),
+(3, 'Mozart', 'Salzburgo', '√Åustria', '1756-01-27', '1791-12-05', 4),
 (4, 'Beethoven', 'Bonn', 'Alemanha', '1770-12-17', '1827-03-26', 5),
-(5, 'Dvorack', 'Nelahozeves', 'Rep˙blica Tcheca', '1841-09-08', '1904-05-01', 5);
+(5, 'Dvorack', 'Nelahozeves', 'Rep√∫blica Tcheca', '1841-09-08', '1904-05-01', 5);
 
 INSERT INTO Gravadora VALUES
 (1, 'Deutsche Grammophon', 'Berlim, Alemanha', 'www.dg.com'),
 (2, 'Sony Classical', 'Nova York, EUA', 'www.sonyclassical.com'),
 (3, 'EMI Classics', 'Londres, Reino Unido', 'www.emiclassics.com'),
 (4, 'Naxos', 'Hong Kong, China', 'www.naxos.com'),
-(5, 'Philips Classics', 'Amsterd„, Holanda', 'www.philipsclassics.com');
+(5, 'Philips Classics', 'Amsterd√£, Holanda', 'www.philipsclassics.com');
 
 INSERT INTO Telefone VALUES
 (1, '1111-1111'),
@@ -35,8 +35,8 @@ INSERT INTO Album VALUES
 (5, 'Sinfonia Novo Mundo', 80.00, '2018-01-01', '2018-06-01', 'CD', 5);
 
 INSERT INTO Faixa VALUES
-(1, 1, 1, 'Fuga em RÈ menor', 300, 'DDD', 'Concerto'),
-(1, 2, 1, 'Prel˙dio em DÛ maior', 280, 'DDD', 'Concerto'),
+(1, 1, 1, 'Fuga em R√© menor', 300, 'DDD', 'Concerto'),
+(1, 2, 1, 'Prel√∫dio em D√≥ maior', 280, 'DDD', 'Concerto'),
 (2, 1, 1, 'Primavera', 320, 'DDD', 'Concerto'),
 (3, 1, 1, 'Sinfonia 40', 420, 'ADD', 'Sinfonia'),
 (5, 1, 1, 'Novo Mundo', 480, 'ADD', 'Sinfonia');
@@ -64,11 +64,11 @@ INSERT INTO Interpretada VALUES
 
 INSERT INTO Playlist VALUES
 (2, 'Barroco Puro', GETDATE(), 0),
-(3, 'Cl·ssicos Eternos', GETDATE(), 0),
-(4, 'Rom‚nticos', GETDATE(), 0),
+(3, 'Cl√°ssicos Eternos', GETDATE(), 0),
+(4, 'Rom√¢nticos', GETDATE(), 0),
 (5, 'Favoritas', GETDATE(), 0),
 (6, 'Concerto Barroco', GETDATE(), 0),
-(9, 'RemovÌvel', GETDATE(), 0);
+(9, 'Remov√≠vel', GETDATE(), 0);
 
 INSERT INTO PlaylistFaixa VALUES
 (GETDATE(), 0, 1, 1, 1, 2),
