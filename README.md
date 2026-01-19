@@ -1,5 +1,8 @@
 # BDSpotPer - Sistema de Banco de Dados para Música Clássica
 
+## Como rodar?
+```python -m app.interface```
+
 ## Especificação de Requisitos de Dados
 
 Um colecionador de música clássica resolveu utilizar a tecnologia de banco de dados para implementar uma versão personalizada do Spotify, o SpotPer. Para tanto, resolveu contratá-los para realizar o projeto e a implementação do banco de dados do SpotPer, o BDSpotPer. O SGBD a ser utilizado pelo SpotPer pode ser SQL Server, Oracle ou Postgres. Após a análise de requisitos, obtida através de entrevistas com o usuário, você identificou as seguintes características:
