@@ -33,18 +33,19 @@ ON Faixa
 FOR INSERT, UPDATE
 AS
 BEGIN
-	IF EXISTS (
-		SELECT i.album FROM Faixa f
-		INNER JOIN inserted i
-		ON f.album = i.album
-		GROUP BY i.album
-		HAVING count(*) > 64
-	)
-	BEGIN
-		RAISERROR('Um álbum não pode ter mais que 64 faixas.',16,1)
-		ROLLBACK TRANSACTION
-	END
-END 
+    IF EXISTS (
+        SELECT total.album 
+		FROM ( SELECT f.album, COUNT(*) AS total_faixas
+				FROM Faixa f
+				WHERE f.album IN (SELECT DISTINCT album FROM inserted)
+				GROUP BY f.album ) total
+        WHERE total.total_faixas > 64
+    )
+    BEGIN
+        RAISERROR('Um álbum não pode ter mais que 64 faixas.', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END
 GO
 
 /* c) No caso de remoção de um álbum do banco de dados, todas as suas faixas
