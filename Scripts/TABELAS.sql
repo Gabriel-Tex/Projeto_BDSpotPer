@@ -1,7 +1,7 @@
 USE BDSpotPer
 
 CREATE TABLE Gravadora(
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	nome VARCHAR(50) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE Gravadora(
 ) ON fg_BDSP
 
 CREATE TABLE Telefone(
-	-- chave prim·ria composta
+	-- chave prim√°ria composta
 	gravadora SMALLINT NOT NULL,
 	numero VARCHAR(20) NOT NULL
 
@@ -37,7 +37,7 @@ CREATE TABLE Telefone(
 ) ON fg_BDSP
 
 CREATE TABLE Album(
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	descricao VARCHAR(100),
@@ -66,7 +66,7 @@ CREATE TABLE Album(
 ) ON fg_BDSP
 
 CREATE TABLE Playlist (
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	nome VARCHAR(50) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE Playlist (
 ) ON fg_PlaylistFaixa
 
 CREATE TABLE Faixa(
-	-- chave prim·ria composta
+	-- chave prim√°ria composta
 	album SMALLINT NOT NULL,
 	num_faixa SMALLINT NOT NULL,
 	num_disc TINYINT NOT NULL,
@@ -113,13 +113,13 @@ CREATE TABLE Faixa(
 
 	-- OBS.:
 
-	/* se num_disc = 0, meio fÌsico = vinil ou download.
-	Sen„o, num_disc = numeraÁ„o do CD que contÈm um
-	subconjunto do ·lbum com aquela faixa (1, 2) */
+	/* se num_disc = 0, meio f√≠sico = vinil ou download.
+	Sen√£o, num_disc = numera√ß√£o do CD que cont√©m um
+	subconjunto do √°lbum com aquela faixa (1, 2) */
 
-	/* Quando o meio fÌsico de armazenamento È CD, o tipo de gravaÁ„o tem que
-	ser ADD ou DDD. Quando o meio fÌsico de armazenamento È vinil ou
-	download, o tipo de gravaÁ„o n„o ter· valor algum */
+	/* Quando o meio f√≠sico de armazenamento √© CD, o tipo de grava√ß√£o tem que
+	ser ADD ou DDD. Quando o meio f√≠sico de armazenamento √© vinil ou
+	download, o tipo de grava√ß√£o n√£o ter√° valor algum */
 
 ) ON fg_PlaylistFaixa
 
@@ -150,7 +150,7 @@ CREATE TABLE PlaylistFaixa(
 ) ON fg_PlaylistFaixa
 
 CREATE TABLE Interprete(
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	nome VARCHAR(50) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE Interprete(
 ) ON fg_BDSP
 
 CREATE TABLE PeriodoMusical(
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	descricao VARCHAR(50) NOT NULL,
@@ -177,13 +177,13 @@ CREATE TABLE PeriodoMusical(
 	CHECK (intervaloInicio < intervaloFim),
 
 	CONSTRAINT ck_descricao
-	CHECK (descricao in ('Idade MÈdia',
-'RenascenÁa', 'Barroco', 'Cl·ssico', 'Rom‚ntico', 'Moderno'))
+	CHECK (descricao in ('Idade M√©dia',
+'Renascen√ßa', 'Barroco', 'Cl√°ssico', 'Rom√¢ntico', 'Moderno'))
 
 ) ON fg_BDSP
 
 CREATE TABLE Compositor(
-	-- chave prim·ria
+	-- chave prim√°ria
 	codigo SMALLINT NOT NULL,
 	-- demais atributos
 	nome VARCHAR(50) NOT NULL,
@@ -209,7 +209,7 @@ CREATE TABLE Compositor(
 ) ON fg_BDSP
 
 CREATE TABLE Compoe (
-	-- chave prim·ria composta
+	-- chave prim√°ria composta
 	album SMALLINT NOT NULL,
 	num_faixa SMALLINT NOT NULL,
 	num_disc TINYINT NOT NULL,
@@ -232,7 +232,7 @@ CREATE TABLE Compoe (
 ) ON fg_BDSP
 
 CREATE TABLE Interpretada(
-	-- chave prim·ria composta
+	-- chave prim√°ria composta
 	album SMALLINT NOT NULL,
 	num_faixa SMALLINT NOT NULL,
 	num_disc TINYINT NOT NULL,

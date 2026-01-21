@@ -1,7 +1,7 @@
 USE BDSpotPer
 GO
-/* a) Um ·lbum, com faixas de m˙sicas do perÌodo barroco, sÛ pode ser inserido no
-banco de dados, caso o tipo de gravaÁ„o seja DDD. */
+/* a) Um √°lbum, com faixas de m√∫sicas do per√≠odo barroco, s√≥ pode ser inserido no
+banco de dados, caso o tipo de grava√ß√£o seja DDD. */
 
 CREATE TRIGGER tg_barrocoDDD
 ON Faixa
@@ -9,7 +9,7 @@ FOR INSERT, UPDATE
 AS
 BEGIN
 	IF EXISTS (
-		SELECT 1 FROM PeriodoMusical pm
+		SELECT * FROM PeriodoMusical pm
 		INNER JOIN Compositor c ON pm.codigo = c.periodo_musical
 		INNER JOIN Compoe c_aux ON c.codigo = c_aux.compositor
 		INNER JOIN inserted i 
@@ -20,41 +20,42 @@ BEGIN
 		(i.tipo_gravacao IS NULL OR i.tipo_gravacao <> 'DDD')
 	)
 	BEGIN
-		RAISERROR('Uma faixa do perÌodo barroco sÛ pode ser inserida caso o tipo de gravaÁ„o seja DDD.',16,1)
+		RAISERROR('Uma faixa do per√≠odo barroco s√≥ pode ser inserida caso o tipo de grava√ß√£o seja DDD.',16,1)
 		ROLLBACK TRANSACTION
 	END
 END
 GO
 
--- b) Um ·lbum n„o pode ter mais que 64 faixas.
+-- b) Um √°lbum n√£o pode ter mais que 64 faixas.
 
 CREATE TRIGGER tg_album64
 ON Faixa
 FOR INSERT, UPDATE
 AS
 BEGIN
-	IF EXISTS (
-		SELECT 1 FROM Faixa f
-		INNER JOIN inserted i
-		ON f.album = i.album
-		GROUP BY i.album
-		HAVING count(*) > 64
-	)
-	BEGIN
-		RAISERROR('Um ·lbum n„o pode ter mais que 64 faixas.',16,1)
-		ROLLBACK TRANSACTION
-	END
-END 
+    IF EXISTS (
+        SELECT total.album 
+		FROM ( SELECT f.album, COUNT(*) AS total_faixas
+				FROM Faixa f
+				WHERE f.album IN (SELECT DISTINCT album FROM inserted)
+				GROUP BY f.album ) total
+        WHERE total.total_faixas > 64
+    )
+    BEGIN
+        RAISERROR('Um √°lbum n√£o pode ter mais que 64 faixas.', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END
 GO
 
-/* c) No caso de remoÁ„o de um ·lbum do banco de dados, todas as suas faixas
+/* c) No caso de remo√ß√£o de um √°lbum do banco de dados, todas as suas faixas
 devem ser removidas. Lembre-se que faixas podem apresentar, por sua vez,
 outros relacionamentos. */
 
--- ESSA RESTRI«√O J¡ … GARANTIDA PELO ON DELETE CASCADE
+-- ESSA RESTRI√á√ÉO J√Å √â GARANTIDA PELO ON DELETE CASCADE
 
-/* d) O preÁo de compra de um ·lbum n„o dever ser superior a trÍs vezes a mÈdia
-do preÁo de compra de ·lbuns, com todas as faixas com tipo de gravaÁ„o DDD. */
+/* d) O pre√ßo de compra de um √°lbum n√£o dever ser superior a tr√°s vezes a m√©dia
+do pre√ßo de compra de √°lbuns, com todas as faixas com tipo de grava√ß√£o DDD. */
 
 CREATE TRIGGER tg_precoAlbumDDD
 ON Album
@@ -63,26 +64,28 @@ AS
 BEGIN
     DECLARE @media DEC(11,2)
 
-	-- mÈdia do preÁo de compra de ·lbuns com todas as faixas do tipo DDD
+	-- m√©dia do pre√ßo de compra de √°lbuns com todas as faixas do tipo DDD
     SELECT @media = AVG(a.preco_de_compra) FROM Album a
+		LEFT JOIN inserted i
+			ON i.codigo = a.codigo
     WHERE NOT EXISTS (
-        SELECT 1 FROM Faixa f
+        SELECT * FROM Faixa f
         WHERE f.album = a.codigo
         AND (f.tipo_gravacao IS NULL OR f.tipo_gravacao <> 'DDD')
-    )
+    ) AND i.codigo IS NULL
 
-	-- se n„o houver ·lbuns com todas as faixas DDD, n„o È preciso aplicar a restriÁ„o
+	-- se n√£o houver √°lbuns com todas as faixas DDD, n√£o √© preciso aplicar a restri√ß√£o
     IF @media IS NULL
         RETURN
-
-	-- verificando se o ·lbum tem preÁo de compra inv·lido
+		
+	-- verificando se o √°lbum tem pre√ßo de compra inv√°lido
     IF EXISTS (
-        SELECT 1 FROM inserted i
+        SELECT * FROM inserted i
         WHERE i.preco_de_compra > 3 * @media
     )
     BEGIN
         RAISERROR (
-            'O preÁo de compra de um ·lbum n„o dever ser superior a trÍs vezes a mÈdia do preÁo de compra de ·lbuns com todas as faixas do tipo DDD.',16, 1)
+            'O pre√ßo de compra de um √°lbum n√£o dever ser superior a tr√™s vezes a m√©dia do pre√ßo de compra de √°lbuns com todas as faixas do tipo DDD.',16, 1)
         ROLLBACK TRANSACTION
     END
 END
@@ -90,11 +93,11 @@ GO
 
 -- ======================================================================================
 
--- Outras restriÁıes
+-- Outras restri√ß√µes
 
-/* se num_disc = 0, meio fÌsico = vinil ou download.
-Sen„o, num_disc = numeraÁ„o do CD que contÈm um
-subconjunto do ·lbum com aquela faixa (1, 2) */
+/* se num_disc = 0, meio f√≠sico = vinil ou download.
+Sen√£o, num_disc = numera√ß√£o do CD que cont√©m um
+subconjunto do √°lbum com aquela faixa (1, 2) */
 
 CREATE TRIGGER tg_num_disc
 ON Faixa
@@ -102,22 +105,22 @@ FOR INSERT, UPDATE
 AS
 BEGIN
 	IF EXISTS (
-		SELECT 1 FROM Album a
+		SELECT * FROM Album a
 		INNER JOIN inserted i
 		ON a.codigo = i.album
 		WHERE (i.num_disc = 0 AND a.meio_fisico NOT IN ('vinil', 'download'))
 		OR (i.num_disc IN (1, 2) AND a.meio_fisico <> 'CD')
 	)
 	BEGIN
-		RAISERROR('N˙mero do disco da faixa n„o casa com o meio fÌsco do ·lbum',16,1)
+		RAISERROR('N√∫mero do disco da faixa n√£o casa com o meio f√≠sco do √°lbum',16,1)
 		ROLLBACK TRANSACTION
 	END
 END
 GO
 
-/* Quando o meio fÌsico de armazenamento È CD, o tipo de gravaÁ„o tem que
-	ser ADD ou DDD. Quando o meio fÌsico de armazenamento È vinil ou
-	download, o tipo de gravaÁ„o n„o ter· valor algum */
+/* Quando o meio f√≠sico de armazenamento √© CD, o tipo de grava√ß√£o tem que
+	ser ADD ou DDD. Quando o meio f√≠sico de armazenamento √© vinil ou
+	download, o tipo de grava√ß√£o n√£o ter√° valor algum */
 
 CREATE TRIGGER tg_meioFisico_tipoGravacao
 ON Faixa
@@ -125,14 +128,15 @@ FOR INSERT, UPDATE
 AS
 BEGIN
 	IF EXISTS (
-		SELECT 1 FROM Album a
+		SELECT * FROM Album a
 		INNER JOIN inserted i
 		ON a.codigo = i.album
-		WHERE (a.meio_fisico = 'CD' AND i.tipo_gravacao NOT IN ('ADD', 'DDD'))
+		WHERE (a.meio_fisico = 'CD' AND (i.tipo_gravacao NOT IN ('ADD', 'DDD') 
+			OR i.tipo_gravacao IS NULL))
 		OR (a.meio_fisico IN ('vinil', 'download') AND i.tipo_gravacao IS NOT NULL)
 	)
 	BEGIN
-		RAISERROR('Meio fÌsico do ·lbum n„o casa com o tipo de gravaÁ„o da faixa.',16,1)
+		RAISERROR('Meio f√≠sico do √°lbum n√£o casa com o tipo de grava√ß√£o da faixa.',16,1)
 		ROLLBACK TRANSACTION
 	END
 END
